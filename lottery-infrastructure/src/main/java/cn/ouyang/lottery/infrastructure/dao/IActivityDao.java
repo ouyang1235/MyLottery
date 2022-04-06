@@ -1,13 +1,13 @@
 package cn.ouyang.lottery.infrastructure.dao;
 
-import cn.ouyang.lottery.infrastructure.po.Activity;
+import cn.ouyang.lottery.infrastructure.po.ActivityDO;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface IActivityDao {
 
-    void insert(Activity req);
+    void insert(ActivityDO req);
 
-    Activity queryActivityById(Long activityId);
+    ActivityDO queryActivityById(Long activityId);
 
 }
