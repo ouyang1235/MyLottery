@@ -28,6 +28,7 @@ public abstract class BaseAlgorithm implements IDrawAlgorithm{
 
     @Override
     public void initRateTuple(Long strategyId, List<AwardRateInfo> awardRateInfoList) {
+        //保存奖品概率信息
         awardRateInfoMap.put(strategyId, awardRateInfoList);
 
         String[] reteTuple = rateTupleMap.computeIfAbsent(strategyId, k -> new String[RATE_TUPLE_LENGTH]);

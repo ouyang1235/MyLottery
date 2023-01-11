@@ -1,51 +1,40 @@
 package cn.ouyang.lottery.domain.strategy.service.draw.impl;
 
-import cn.ouyang.lottery.domain.strategy.model.aggregates.StrategyRich;
-import cn.ouyang.lottery.domain.strategy.model.req.DrawReq;
-import cn.ouyang.lottery.domain.strategy.model.res.DrawResult;
-import cn.ouyang.lottery.domain.strategy.repository.IStrategyRepository;
+
 import cn.ouyang.lottery.domain.strategy.service.algorithm.IDrawAlgorithm;
-import cn.ouyang.lottery.domain.strategy.service.draw.DrawBase;
-import cn.ouyang.lottery.domain.strategy.service.draw.IDrawExec;
-import cn.ouyang.lottery.infrastructure.po.Award;
-import cn.ouyang.lottery.infrastructure.po.Strategy;
-import cn.ouyang.lottery.infrastructure.po.StrategyDetail;
+import cn.ouyang.lottery.domain.strategy.service.draw.AbstractDrawBase;
+
+import com.alibaba.fastjson.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service("drawExec")
-public class DrawExecImpl extends DrawBase implements IDrawExec {
+public class DrawExecImpl extends AbstractDrawBase {
 
     private Logger logger = LoggerFactory.getLogger(DrawExecImpl.class);
 
-    @Resource
-    private IStrategyRepository strategyRepository;
 
     @Override
-    public DrawResult doDrawExec(DrawReq req) {
-        logger.info("执行策略抽奖开始，strategyId:{}",req.getStrategyId());
+    protected List<String> queryExcludeAwardIds(Long strategyId) {
+        List<String> awardList = strategyRepository.queryNoStockStrategyAwardList(strategyId);
+        logger.info("执行抽奖策略 strategyId：{}，无库存排除奖品列表ID集合 awardList：{}", strategyId, JSONObject.toJSONString(awardList));
+        return awardList;
+    }
 
-        //获取抽奖策略配置数据
-        StrategyRich strategyRich = strategyRepository.queryStrategyRich(req.getStrategyId());
-        Strategy strategy = strategyRich.getStrategy();
-        List<StrategyDetail> strategyDetailList = strategyRich.getStrategyDetailList();
-
-        //校验和初始化数据
-        checkAndInitRateData(req.getStrategyId(),strategy.getStrategyMode(),strategyDetailList);
-
-        //根据策略方式抽奖
-        IDrawAlgorithm iDrawAlgorithm = drawAlgorithmMap.get(strategy.getStrategyMode());
-        String awardId = iDrawAlgorithm.randomDraw(req.getStrategyId(), new ArrayList<>());
-
-        Award award = strategyRepository.queryAwardInfo(awardId);
-
-        logger.info("执行策略抽奖完成，中奖用户：{} 奖品ID：{} 奖品名称：{}", req.getuId(), awardId, award.getAwardName());
-
-        return new DrawResult(req.getuId(),req.getStrategyId(),awardId,award.getAwardName());
+    @Override
+    protected String drawAlgorithm(Long strategyId, IDrawAlgorithm drawAlgorithm, List<String> excludeAwardIds) {
+        //执行抽奖
+        String awardId = drawAlgorithm.randomDraw(strategyId, excludeAwardIds);
+        //判断抽奖结果
+        if (null == awardId){
+            return null;
+        }
+        //扣减库存
+        boolean success = strategyRepository.deductStock(strategyId, awardId);
+        //返回结果
+        return success ? awardId : null;
     }
 }

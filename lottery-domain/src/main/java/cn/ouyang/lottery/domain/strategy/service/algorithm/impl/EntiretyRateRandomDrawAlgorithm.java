@@ -12,8 +12,8 @@ import java.util.List;
 /**
  * 必中奖策略抽奖，排掉已经中奖的概率，重新计算中奖范畴
  */
-@Component("defaultRateRandomDrawAlgorithm")
-public class DefaultRateRandomDrawAlgorithm extends BaseAlgorithm {
+@Component("entiretyRateRandomDrawAlgorithm")
+public class EntiretyRateRandomDrawAlgorithm extends BaseAlgorithm {
     @Override
     public String randomDraw(Long strategyId, List<String> excludeAwardIds) {
         BigDecimal differenceDenominator = BigDecimal.ZERO;
