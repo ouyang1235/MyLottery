@@ -3,6 +3,8 @@ package cn.ouyang.lottery.infrastructure.dao;
 import cn.ouyang.lottery.infrastructure.po.Award;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 /**
  * 博客：https://bugstack.cn - 沉淀、分享、成长，让自己和他人都能有所收获！
  * 公众号：bugstack虫洞栈
@@ -12,5 +14,12 @@ import org.apache.ibatis.annotations.Mapper;
 public interface IAwardDao {
 
     Award queryAwardInfo(String awardId);
+
+    /**
+     * 插入奖品配置
+     *
+     * @param list 奖品配置
+     */
+    void insertList(List<Award> list);
 
 }

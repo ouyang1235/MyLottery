@@ -1,20 +1,15 @@
-package cn.ouyang.lottery.infrastructure.po;
+package cn.ouyang.lottery.domain.strategy.model.vo;
 
 import java.math.BigDecimal;
 
 /**
- * 博客：https://bugstack.cn - 沉淀、分享、成长，让自己和他人都能有所收获！
- * 公众号：bugstack虫洞栈
- * Create by 小傅哥(fustack)
- * <p>
- * 策略明细
+ * @description: 策略明细简要信息
+ * @author: 小傅哥，微信：fustack
+ * @date: 2021/9/11
+ * @github: https://github.com/fuzhengwei
+ * @Copyright: 公众号：bugstack虫洞栈 | 博客：https://bugstack.cn - 沉淀、分享、成长，让自己和他人都能有所收获！
  */
-public class StrategyDetail {
-
-    /**
-     * 自增ID
-     */
-    private String id;
+public class StrategyDetailBriefVO {
 
     /**
      * 策略ID
@@ -45,24 +40,6 @@ public class StrategyDetail {
      * 中奖概率
      */
     private BigDecimal awardRate;
-
-    /**
-     * 创建时间
-     */
-    private String createTime;
-
-    /**
-     * 修改时间
-     */
-    private String updateTime;
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
 
     public Long getStrategyId() {
         return strategyId;
@@ -112,19 +89,16 @@ public class StrategyDetail {
         this.awardRate = awardRate;
     }
 
-    public String getCreateTime() {
-        return createTime;
+    @Override
+    public String toString() {
+        return "StrategyDetailBriefVO{" +
+                "strategyId=" + strategyId +
+                ", awardId='" + awardId + '\'' +
+                ", awardName='" + awardName + '\'' +
+                ", awardCount=" + awardCount +
+                ", awardSurplusCount=" + awardSurplusCount +
+                ", awardRate=" + awardRate +
+                '}';
     }
 
-    public void setCreateTime(String createTime) {
-        this.createTime = createTime;
-    }
-
-    public String getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(String updateTime) {
-        this.updateTime = updateTime;
-    }
 }
