@@ -1,7 +1,14 @@
 package cn.ouyang.lottery.test;
 
+import cn.ouyang.lottery.common.DrawState;
+import cn.ouyang.lottery.domain.award.model.req.GoodsReq;
+import cn.ouyang.lottery.domain.award.model.res.DistributionRes;
+import cn.ouyang.lottery.domain.award.service.goods.IDistributionGoods;
+import cn.ouyang.lottery.domain.award.service.goods.factory.DistributionGoodsFactory;
 import cn.ouyang.lottery.domain.strategy.model.req.DrawReq;
+import cn.ouyang.lottery.domain.strategy.model.res.DrawResult;
 import cn.ouyang.lottery.domain.strategy.model.vo.AwardRateInfo;
+import cn.ouyang.lottery.domain.strategy.model.vo.DrawAwardInfo;
 import cn.ouyang.lottery.domain.strategy.service.algorithm.IDrawAlgorithm;
 import cn.ouyang.lottery.domain.strategy.service.draw.IDrawExec;
 import cn.ouyang.lottery.infrastructure.dao.IActivityDao;
@@ -33,6 +40,10 @@ public class SpringRunnerTest {
 
     @Resource
     private IDrawExec drawExec;
+
+
+    @Resource
+    private DistributionGoodsFactory distributionGoodsFactory;
 
     @Test
     public void test_drawExec() {
@@ -91,6 +102,23 @@ public class SpringRunnerTest {
             System.out.println("中奖结果：" + randomDrawAlgorithm.randomDraw(100001L, excludeAwardIds));
         }
 
+    }
+
+    @Test
+    public void test_award(){
+        DrawResult drawResult = drawExec.doDrawExec(new DrawReq("小傅哥", 10001L));
+
+        Integer drawState = drawResult.getDrawState();
+        if (DrawState.FAIL.getCode().equals(drawState)){
+            logger.info("未中奖 DrawAwardInfo is null");
+            return;
+        }
+
+        DrawAwardInfo drawAwardInfo = drawResult.getDrawAwardInfo();
+        GoodsReq goodsReq = new GoodsReq(drawResult.getuId(), "2109313442431", drawAwardInfo.getAwardId(), drawAwardInfo.getAwardName(), drawAwardInfo.getAwardContent());
+        IDistributionGoods distributionGoodsService = distributionGoodsFactory.getDistributionGoodsService(drawAwardInfo.getAwardType());
+        DistributionRes distributionRes = distributionGoodsService.doDistribution(goodsReq);
+        logger.info("测试结果：{}", JSON.toJSONString(distributionRes));
     }
 
 }

@@ -26,6 +26,11 @@ public class StrategyDetail {
     // 中奖概率
     private BigDecimal awardRate;
 
+    /**
+     * 奖品剩余库存
+     */
+    private Integer awardSurplusCount;
+
     // 创建时间
     private String createTime;
 
@@ -86,5 +91,13 @@ public class StrategyDetail {
 
     public void setUpdateTime(String updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public Integer getAwardSurplusCount() {
+        return awardSurplusCount;
+    }
+
+    public void setAwardSurplusCount(Integer awardSurplusCount) {
+        this.awardSurplusCount = awardSurplusCount;
     }
 }
