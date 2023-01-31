@@ -34,7 +34,6 @@ public class SnowFlake implements IIdGenerator {
 
         long dataCenter = 1L;
         snowflake = IdUtil.createSnowflake(workerId,dataCenter);
-
     }
 
     @Override
