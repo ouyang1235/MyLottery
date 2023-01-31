@@ -6,11 +6,14 @@ import cn.ouyang.lottery.common.enums.ActivityState;
 import cn.ouyang.lottery.common.enums.AwardType;
 import cn.ouyang.lottery.domain.activity.model.aggregates.ActivityConfigRich;
 import cn.ouyang.lottery.domain.activity.model.req.ActivityConfigReq;
+import cn.ouyang.lottery.domain.activity.model.req.PartakeReq;
+import cn.ouyang.lottery.domain.activity.model.resp.PartakeResult;
 import cn.ouyang.lottery.domain.activity.model.vo.ActivityVO;
 import cn.ouyang.lottery.domain.activity.model.vo.AwardVO;
 import cn.ouyang.lottery.domain.activity.model.vo.StrategyDetailVO;
 import cn.ouyang.lottery.domain.activity.model.vo.StrategyVO;
 import cn.ouyang.lottery.domain.activity.service.deploy.IActivityDeploy;
+import cn.ouyang.lottery.domain.activity.service.partake.IActivityPartake;
 import cn.ouyang.lottery.domain.activity.service.stateflow.IStateHandler;
 import com.alibaba.fastjson.JSON;
 import org.junit.Before;
@@ -42,7 +45,7 @@ public class ActivityTest {
     private ActivityConfigRich activityConfigRich;
 
     /**
-     * TODO：后面编写ID生成策略
+     *
      */
     private Long activityId = 120981321L;
 
@@ -168,6 +171,18 @@ public class ActivityTest {
         logger.info("审核通过，测试：{}", JSON.toJSONString(stateHandler.checkPass(100001L, ActivityState.ARRAIGNMENT)));
         logger.info("运行活动，测试：{}", JSON.toJSONString(stateHandler.doing(100001L, ActivityState.PASS)));
         logger.info("二次提审，测试：{}", JSON.toJSONString(stateHandler.checkPass(100001L, ActivityState.EDIT)));
+    }
+
+
+    @Resource
+    private IActivityPartake activityPartake;
+
+    @Test
+    public void test_activityPartake() {
+        PartakeReq req = new PartakeReq("Uhdgkw766120d", 100001L);
+        PartakeResult res = activityPartake.doPartake(req);
+        logger.info("请求参数：{}", JSON.toJSONString(req));
+        logger.info("测试结果：{}", JSON.toJSONString(res));
     }
 
 }

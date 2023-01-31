@@ -1,10 +1,8 @@
 package cn.ouyang.lottery.domain.activity.repository;
 
 import cn.ouyang.lottery.common.enums.ActivityState;
-import cn.ouyang.lottery.domain.activity.model.vo.ActivityVO;
-import cn.ouyang.lottery.domain.activity.model.vo.AwardVO;
-import cn.ouyang.lottery.domain.activity.model.vo.StrategyDetailVO;
-import cn.ouyang.lottery.domain.activity.model.vo.StrategyVO;
+import cn.ouyang.lottery.domain.activity.model.req.PartakeReq;
+import cn.ouyang.lottery.domain.activity.model.vo.*;
 
 import java.util.List;
 
@@ -49,4 +47,19 @@ public interface IActivityRepository {
      * @return              更新结果
      */
     boolean alterStatus(Long activityId, Enum<ActivityState> beforeState, Enum<ActivityState> afterState);
+
+    /**
+     * 查询活动账单信息
+     * @param req
+     * @return
+     */
+    ActivityBillVO queryActivityBill(PartakeReq req);
+
+    /**
+     * 扣减活动库存
+     * @param activityId   活动ID
+     * @return      扣减结果
+     */
+    int subtractionActivityStock(Long activityId);
+
 }
