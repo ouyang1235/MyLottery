@@ -2,7 +2,8 @@ package cn.ouyang.lottery.infrastructure.repository;
 
 import cn.ouyang.lottery.domain.award.repository.IAwardRepository;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
-@Component
+@Repository
 public class AwardRepository implements IAwardRepository {
 }
