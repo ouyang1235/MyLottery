@@ -1,5 +1,6 @@
-package cn.ouyang.lottery.application.mq;
+package cn.ouyang.lottery.application.mq.consumer;
 
+import cn.ouyang.lottery.application.mq.producer.KafkaProducer;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -4,6 +4,7 @@ package cn.ouyang.lottery.test.application;
 import cn.ouyang.lottery.application.process.IActivityProcess;
 import cn.ouyang.lottery.application.process.req.DrawProcessReq;
 import cn.ouyang.lottery.application.process.res.DrawProcessResult;
+import cn.ouyang.lottery.interfaces.LotteryApplication;
 import com.alibaba.fastjson.JSON;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,7 +16,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import javax.annotation.Resource;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest
+@SpringBootTest(classes = LotteryApplication.class)
 public class ActivityProcessTest {
 
     private Logger logger = LoggerFactory.getLogger(ActivityProcessTest.class);
@@ -24,11 +25,13 @@ public class ActivityProcessTest {
     private IActivityProcess activityProcess;
 
     @Test
-    public void test_doDrawProcess() {
+    public void test_doDrawProcess() throws InterruptedException {
         DrawProcessReq req = new DrawProcessReq();
         req.setuId("fustack");
         req.setActivityId(100001L);
         DrawProcessResult drawProcessResult = activityProcess.doDrawProcess(req);
+
+        Thread.sleep(5000);
 
         logger.info("请求入参：{}", JSON.toJSONString(req));
         logger.info("测试结果：{}", JSON.toJSONString(drawProcessResult));

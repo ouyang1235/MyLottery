@@ -1,6 +1,6 @@
 package cn.ouyang.lottery.test.application;
 
-import cn.ouyang.lottery.application.mq.KafkaProducer;
+import cn.ouyang.lottery.application.mq.producer.KafkaProducer;
 import cn.ouyang.lottery.interfaces.LotteryApplication;
 import org.junit.Test;
 import org.junit.runner.RunWith;

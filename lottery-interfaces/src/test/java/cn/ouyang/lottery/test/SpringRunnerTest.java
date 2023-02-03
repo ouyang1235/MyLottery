@@ -114,11 +114,11 @@ public class SpringRunnerTest {
             return;
         }
 
-        DrawAwardVO drawAwardVO = drawResult.getDrawAwardInfo();
-        GoodsReq goodsReq = new GoodsReq(drawResult.getuId(), "2109313442431", drawAwardVO.getAwardId(), drawAwardVO.getAwardName(), drawAwardVO.getAwardContent());
-        IDistributionGoods distributionGoodsService = distributionGoodsFactory.getDistributionGoodsService(drawAwardVO.getAwardType());
-        DistributionRes distributionRes = distributionGoodsService.doDistribution(goodsReq);
-        logger.info("测试结果：{}", JSON.toJSONString(distributionRes));
+//        DrawAwardVO drawAwardVO = drawResult.getDrawAwardInfo();
+//        GoodsReq goodsReq = new GoodsReq(drawResult.getuId(), "2109313442431", drawAwardVO.getAwardId(), drawAwardVO.getAwardName(), drawAwardVO.getAwardContent());
+//        IDistributionGoods distributionGoodsService = distributionGoodsFactory.getDistributionGoodsService(drawAwardVO.getAwardType());
+//        DistributionRes distributionRes = distributionGoodsService.doDistribution(goodsReq);
+//        logger.info("测试结果：{}", JSON.toJSONString(distributionRes));
     }
 
 }
