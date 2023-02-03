@@ -1,6 +1,6 @@
 package cn.ouyang.lottery.domain.strategy.service.algorithm;
 
-import cn.ouyang.lottery.domain.strategy.model.vo.AwardRateInfo;
+import cn.ouyang.lottery.domain.strategy.model.vo.AwardRateVO;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -23,23 +23,23 @@ public abstract class BaseAlgorithm implements IDrawAlgorithm{
     protected Map<Long,String[]> rateTupleMap = new ConcurrentHashMap<>();
 
     //奖品概率信息列表
-    protected Map<Long,List<AwardRateInfo>> awardRateInfoMap = new ConcurrentHashMap<>();
+    protected Map<Long,List<AwardRateVO>> awardRateInfoMap = new ConcurrentHashMap<>();
 
 
     @Override
-    public void initRateTuple(Long strategyId, List<AwardRateInfo> awardRateInfoList) {
+    public void initRateTuple(Long strategyId, List<AwardRateVO> awardRateVOList) {
         //保存奖品概率信息
-        awardRateInfoMap.put(strategyId, awardRateInfoList);
+        awardRateInfoMap.put(strategyId, awardRateVOList);
 
         String[] reteTuple = rateTupleMap.computeIfAbsent(strategyId, k -> new String[RATE_TUPLE_LENGTH]);
 
         int cursorVal = 0;
-        for (AwardRateInfo awardRateInfo : awardRateInfoList) {
-            int rateVal = awardRateInfo.getAwardRate().multiply(new BigDecimal(100)).intValue();
+        for (AwardRateVO awardRateVO : awardRateVOList) {
+            int rateVal = awardRateVO.getAwardRate().multiply(new BigDecimal(100)).intValue();
 
             //循环填充概率范围
             for (int i = cursorVal + 1;i<=(cursorVal + rateVal);i++){
-                reteTuple[hashIdx(i)] = awardRateInfo.getAwardId();
+                reteTuple[hashIdx(i)] = awardRateVO.getAwardId();
             }
 
             cursorVal += rateVal;

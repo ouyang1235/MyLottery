@@ -7,8 +7,8 @@ import cn.ouyang.lottery.domain.award.service.goods.IDistributionGoods;
 import cn.ouyang.lottery.domain.award.service.goods.factory.DistributionGoodsFactory;
 import cn.ouyang.lottery.domain.strategy.model.req.DrawReq;
 import cn.ouyang.lottery.domain.strategy.model.res.DrawResult;
-import cn.ouyang.lottery.domain.strategy.model.vo.AwardRateInfo;
-import cn.ouyang.lottery.domain.strategy.model.vo.DrawAwardInfo;
+import cn.ouyang.lottery.domain.strategy.model.vo.AwardRateVO;
+import cn.ouyang.lottery.domain.strategy.model.vo.DrawAwardVO;
 import cn.ouyang.lottery.domain.strategy.service.algorithm.IDrawAlgorithm;
 import cn.ouyang.lottery.domain.strategy.service.draw.IDrawExec;
 import cn.ouyang.lottery.infrastructure.dao.IActivityDao;
@@ -80,12 +80,12 @@ public class SpringRunnerTest {
     @Before
     public void init() {
         // 奖品信息
-        List<AwardRateInfo> strategyList = new ArrayList<>();
-        strategyList.add(new AwardRateInfo("一等奖：IMac", new BigDecimal("0.05")));
-        strategyList.add(new AwardRateInfo("二等奖：iphone", new BigDecimal("0.15")));
-        strategyList.add(new AwardRateInfo("三等奖：ipad", new BigDecimal("0.20")));
-        strategyList.add(new AwardRateInfo("四等奖：AirPods", new BigDecimal("0.25")));
-        strategyList.add(new AwardRateInfo("五等奖：充电宝", new BigDecimal("0.35")));
+        List<AwardRateVO> strategyList = new ArrayList<>();
+        strategyList.add(new AwardRateVO("一等奖：IMac", new BigDecimal("0.05")));
+        strategyList.add(new AwardRateVO("二等奖：iphone", new BigDecimal("0.15")));
+        strategyList.add(new AwardRateVO("三等奖：ipad", new BigDecimal("0.20")));
+        strategyList.add(new AwardRateVO("四等奖：AirPods", new BigDecimal("0.25")));
+        strategyList.add(new AwardRateVO("五等奖：充电宝", new BigDecimal("0.35")));
 
         // 初始数据
         randomDrawAlgorithm.initRateTuple(100001L, strategyList);
@@ -114,9 +114,9 @@ public class SpringRunnerTest {
             return;
         }
 
-        DrawAwardInfo drawAwardInfo = drawResult.getDrawAwardInfo();
-        GoodsReq goodsReq = new GoodsReq(drawResult.getuId(), "2109313442431", drawAwardInfo.getAwardId(), drawAwardInfo.getAwardName(), drawAwardInfo.getAwardContent());
-        IDistributionGoods distributionGoodsService = distributionGoodsFactory.getDistributionGoodsService(drawAwardInfo.getAwardType());
+        DrawAwardVO drawAwardVO = drawResult.getDrawAwardInfo();
+        GoodsReq goodsReq = new GoodsReq(drawResult.getuId(), "2109313442431", drawAwardVO.getAwardId(), drawAwardVO.getAwardName(), drawAwardVO.getAwardContent());
+        IDistributionGoods distributionGoodsService = distributionGoodsFactory.getDistributionGoodsService(drawAwardVO.getAwardType());
         DistributionRes distributionRes = distributionGoodsService.doDistribution(goodsReq);
         logger.info("测试结果：{}", JSON.toJSONString(distributionRes));
     }

@@ -1,6 +1,6 @@
 package cn.ouyang.lottery.domain.strategy.service.algorithm;
 
-import cn.ouyang.lottery.domain.strategy.model.vo.AwardRateInfo;
+import cn.ouyang.lottery.domain.strategy.model.vo.AwardRateVO;
 
 import java.util.List;
 
@@ -19,7 +19,7 @@ public interface IDrawAlgorithm {
     /**
      * 程序启动时初始化概率元组
      */
-    void initRateTuple(Long strategyId,List<AwardRateInfo> awardRateInfoList);
+    void initRateTuple(Long strategyId,List<AwardRateVO> awardRateVOList);
 
     /**
      * 判断该策略是否已经初始化

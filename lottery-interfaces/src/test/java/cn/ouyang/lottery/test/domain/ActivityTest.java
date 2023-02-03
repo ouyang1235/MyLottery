@@ -1,6 +1,5 @@
 package cn.ouyang.lottery.test.domain;
 
-import cn.ouyang.lottery.LotteryApplication;
 import cn.ouyang.lottery.common.Constants;
 import cn.ouyang.lottery.common.enums.ActivityState;
 import cn.ouyang.lottery.common.enums.AwardType;
