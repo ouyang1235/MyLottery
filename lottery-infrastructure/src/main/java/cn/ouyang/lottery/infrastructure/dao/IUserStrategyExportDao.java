@@ -1,8 +1,8 @@
 package cn.ouyang.lottery.infrastructure.dao;
 
+import cn.bugstack.middleware.db.router.annotation.DBRouter;
+import cn.bugstack.middleware.db.router.annotation.DBRouterStrategy;
 import cn.ouyang.lottery.infrastructure.po.UserStrategyExport;
-import cn.ouyang.middleware.db.router.annotation.DBRouter;
-import cn.ouyang.middleware.db.router.annotation.DBRouterStrategy;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper

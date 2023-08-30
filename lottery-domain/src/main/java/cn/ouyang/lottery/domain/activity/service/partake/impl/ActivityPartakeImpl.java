@@ -1,5 +1,6 @@
 package cn.ouyang.lottery.domain.activity.service.partake.impl;
 
+import cn.bugstack.middleware.db.router.strategy.IDBRouterStrategy;
 import cn.ouyang.lottery.common.Constants;
 import cn.ouyang.lottery.common.Result;
 import cn.ouyang.lottery.common.enums.ActivityState;
@@ -11,7 +12,6 @@ import cn.ouyang.lottery.domain.activity.model.vo.UserTakeActivityVO;
 import cn.ouyang.lottery.domain.activity.repository.IUserTakeActivityRepository;
 import cn.ouyang.lottery.domain.activity.service.partake.BaseActivityPartake;
 import cn.ouyang.lottery.domain.support.ids.IIdGenerator;
-import cn.ouyang.middleware.db.router.strategy.IDBRouterStrategy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DuplicateKeyException;

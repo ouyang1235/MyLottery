@@ -1,8 +1,8 @@
 package cn.ouyang.lottery.infrastructure.dao;
 
 
+import cn.bugstack.middleware.db.router.annotation.DBRouter;
 import cn.ouyang.lottery.infrastructure.po.UserTakeActivityCount;
-import cn.ouyang.middleware.db.router.annotation.DBRouter;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
